@@ -4,7 +4,6 @@ import { CurrencyMap, ExchangeRateResponse } from '../types';
 const LIVE_URL = 'https://open.er-api.com/v6/latest';
 const HISTORY_URL = 'https://api.frankfurter.app';
 
-// Extended list of currency names
 const CURRENCY_NAMES: Record<string, string> = {
   USD: "United States Dollar",
   EUR: "Euro",
@@ -70,8 +69,6 @@ export const fetchRates = async (baseCurrency: string): Promise<ExchangeRateResp
   };
 };
 
-// Frankfurter only supports ECB currencies, so this might fail for KZT/KGS.
-// We handle this gracefully in the UI.
 export const fetchHistory = async (from: string, to: string, days: number = 30) => {
   const end = new Date();
   const start = new Date();
@@ -85,7 +82,6 @@ export const fetchHistory = async (from: string, to: string, days: number = 30) 
     );
     return response.data.rates;
   } catch (error) {
-    // Return null to indicate chart is unavailable for this pair
     return null;
   }
 };
